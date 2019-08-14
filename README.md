@@ -14,8 +14,16 @@ config | 配置中心 | 9998 |
 
 - eureka
 
-    浏览器访问：http://localhost:9999/，查看已注册服务
+    浏览器访问,查看已注册服务：http://localhost:9999/
 - config
+    
+   配置文件命名：applicationName+flag.properties，如果有多量相同配置项，则创建applicationName.properties
+   
+   刷新数据：http://localhost:9998/actuator/bus-refresh
+   
+   调用实例：http://localhost:9998/hystrix-dev.properties
+   
+   
 
 
 
