@@ -7,7 +7,10 @@ SpringCloud版本：Greenwich.SR2
 -|-|-
 eureka | 服务注册中心 | 9999 |
 config | 配置中心 | 9998 |
+admin | 服务监控 | 9997 |
+hystrix | 服务降级和熔断 | 9996 |
 
+zipkin | 链路跟踪 | 9441 |
 
 
 ### 启动流程
@@ -22,11 +25,20 @@ config | 配置中心 | 9998 |
    刷新数据：http://localhost:9998/actuator/bus-refresh
    
    调用实例：http://localhost:9998/hystrix-dev.properties
+- zipkin
+    
+   不需要创建module，下载jar包，运行即可。
    
+   下载地址：https://repo1.maven.org/maven2/io/zipkin/zipkin-server/
    
-
-
-
+   运行：Java -jar /yourDirectory/zipkin/zipkin-server-2.12.9-exec.jar 
+   
+   访问地址：http://localhost:9411/zipkin/
+- admin
+    
+   访问地址：http://localhost:9997
+- hystrix
+    
 
 下一步将进行docker部署
 
