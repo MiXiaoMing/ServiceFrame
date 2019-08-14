@@ -14,6 +14,9 @@ config | 配置中心 | 9998 |
 
 - eureka
 
+    浏览器访问：http://localhost:9999/，查看已注册服务
+- config
+
 
 
 
