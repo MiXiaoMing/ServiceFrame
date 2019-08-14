@@ -9,7 +9,6 @@ eureka | 服务注册中心 | 9999 |
 config | 配置中心 | 9998 |
 admin | 服务监控 | 9997 |
 hystrix | 服务降级和熔断 | 9996 |
-
 zipkin | 链路跟踪 | 9441 |
 
 
@@ -39,6 +38,7 @@ zipkin | 链路跟踪 | 9441 |
    访问地址：http://localhost:9997
 - hystrix
     
+   访问地址：http://localhost:9996/hystrix
 
 下一步将进行docker部署
 

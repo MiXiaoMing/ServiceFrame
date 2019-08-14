@@ -9,12 +9,14 @@
         <module name="admin" />
         <module name="config" />
         <module name="eureka" />
+        <module name="hystrix" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="admin" target="1.8" />
       <module name="config" target="1.8" />
       <module name="eureka" target="1.8" />
+      <module name="hystrix" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
