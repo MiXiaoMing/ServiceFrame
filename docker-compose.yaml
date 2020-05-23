@@ -1,0 +1,108 @@
+version: '2'
+
+
+networks:
+  basic:
+
+
+services:
+  eureka:
+    image: openjdk
+    container_name: eureka
+    ports:
+    - "9999:9999"
+    environment: 
+    - TZ=Asia/Shanghai
+    volumes:
+    - /jbh/servers/data/eureka.jar:/jbh/data/application.jar:Z
+    - /jbh/servers/data/eureka.properties:/jbh/data/application.properties:Z
+    - /jbh/servers/log/:/serviceframe/log/:Z
+    command: java -jar /jbh/data/application.jar --spring.config.location=/jbh/data/application.properties >/dev/null 2>&1 & && tail -f /dev/null
+    networks:
+      - basic
+
+
+  config:
+    image: openjdk
+    container_name: config
+    ports:
+    - "9998:9998"
+    environment: 
+    - TZ=Asia/Shanghai
+    volumes:
+    - /jbh/servers/data/config.jar:/jbh/data/application.jar:Z
+    - /jbh/servers/data/config.properties:/jbh/data/application.properties:Z
+    - /jbh/servers/log/:/serviceframe/log/:Z
+    command: java -jar /jbh/data/application.jar --spring.config.location=/jbh/data/application.properties >/dev/null 2>&1 & && tail -f /dev/null
+    networks:
+      - basic
+    links:
+    - eureka
+
+  
+  zipkin:
+    image: openjdk
+    container_name: zipkin
+    ports:
+    - "9411:9411"
+    environment: 
+    - TZ=Asia/Shanghai
+    volumes:
+    - /jbh/servers/data/zipkin.jar:/jbh/data/application.jar:Z
+    command: java -jar /jbh/data/application.jar >/dev/null 2>&1 & && tail -f /dev/null
+    networks:
+      - basic
+    links:
+    - eureka
+
+
+  admin:
+    image: openjdk
+    container_name: admin
+    ports:
+    - "9997:9997"
+    environment: 
+    - TZ=Asia/Shanghai
+    volumes:
+    - /jbh/servers/data/admin.jar:/jbh/data/application.jar:Z
+    - /jbh/servers/data/admin.properties:/jbh/data/application.properties:Z
+    - /jbh/servers/log/:/serviceframe/log/:Z
+    command: java -jar /jbh/data/application.jar --spring.config.location=/jbh/data/application.properties >/dev/null 2>&1 & && tail -f /dev/null
+    networks:
+      - basic
+    links:
+    - eureka
+    - zipkin
+    - config
+
+
+  hystrix:
+    image: openjdk
+    container_name: hystrix
+    ports:
+    - "9996:9996"
+    environment: 
+    - TZ=Asia/Shanghai
+    volumes:
+    - /jbh/servers/data/hystrix.jar:/jbh/data/application.jar:Z
+    - /jbh/servers/data/hystrix.properties:/jbh/data/application.properties:Z
+    - /jbh/servers/log/:/serviceframe/log/:Z
+    command: java -jar /jbh/data/application.jar --spring.config.location=/jbh/data/application.properties >/dev/null 2>&1 & && tail -f /dev/null
+    networks:
+      - basic
+    links:
+    - eureka
+    - zipkin
+    - config
+
+
+
+
+
+
+
+
+
+
+
+
