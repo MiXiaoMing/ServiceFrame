@@ -6,6 +6,24 @@ networks:
 
 
 services:
+
+ # 基础组件
+
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+    - "6379:6379"
+    environment: 
+    - TZ=Asia/Shanghai
+    volumes:
+    - /jbh/redis/data/:/data:Z
+    networks:
+      - basic
+
+
+ # service frame
+
   eureka:
     image: openjdk
     container_name: eureka

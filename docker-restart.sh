@@ -4,5 +4,5 @@ set timeout -1
 expect "root@1.119.166.179's password: "
 send "LqIkKKTIcKeTIXSF4FF6Ftp\r"
 expect "*]#"
-send "docker-compose -f /jbh/servers/docker-compose.yaml restart [lindex $argv 0] && exit\r"
+send "docker-compose -f /jbh/servers/docker-compose-serviceframe.yaml restart [lindex $argv 0] && exit\r"
 expect eof
