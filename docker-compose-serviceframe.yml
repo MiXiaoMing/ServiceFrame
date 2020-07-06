@@ -22,14 +22,40 @@ services:
       - basic
 
 
+  mysql:
+    image: mysql:5.6
+    container_name: mysql
+    ports:
+    - "3306:3306"
+    environment:
+    - TZ=Asia/Shanghai
+    - MYSQL_ROOT_PASSWORD=root
+    volumes:
+    - /jbh/mysql/data/:/var/lib/mysql:Z
+    networks:
+      - basic
+
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    ports:
+    - "5672:5672"
+    - "15672:15672"
+    environment:
+    - TZ=Asia/Shanghai
+    networks:
+      - basic
+
+
+
  # service frame
 
   eureka:
-    image: openjdk
+    image: adoptopenjdk/openjdk8-openj9
     container_name: eureka
     ports:
     - "9999:9999"
-    environment: 
+    environment:
     - TZ=Asia/Shanghai
     volumes:
     - /jbh/servers/data/eureka.jar:/jbh/data/application.jar:Z
@@ -41,11 +67,11 @@ services:
 
 
   config:
-    image: openjdk
+    image: adoptopenjdk/openjdk8-openj9
     container_name: config
     ports:
     - "9998:9998"
-    environment: 
+    environment:
     - TZ=Asia/Shanghai
     volumes:
     - /jbh/servers/data/config.jar:/jbh/data/application.jar:Z
@@ -57,13 +83,13 @@ services:
     links:
     - eureka
 
-  
+
   zipkin:
-    image: openjdk
+    image: openzipkin/zipkin
     container_name: zipkin
     ports:
     - "9411:9411"
-    environment: 
+    environment:
     - TZ=Asia/Shanghai
     volumes:
     - /jbh/servers/data/zipkin.jar:/jbh/data/application.jar:Z
@@ -75,11 +101,11 @@ services:
 
 
   admin:
-    image: openjdk
+    image: adoptopenjdk/openjdk8-openj9
     container_name: admin
     ports:
     - "9997:9997"
-    environment: 
+    environment:
     - TZ=Asia/Shanghai
     volumes:
     - /jbh/servers/data/admin.jar:/jbh/data/application.jar:Z
@@ -95,11 +121,11 @@ services:
 
 
   hystrix:
-    image: openjdk
+    image: adoptopenjdk/openjdk8-openj9
     container_name: hystrix
     ports:
     - "9996:9996"
-    environment: 
+    environment:
     - TZ=Asia/Shanghai
     volumes:
     - /jbh/servers/data/hystrix.jar:/jbh/data/application.jar:Z
