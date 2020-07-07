@@ -53,4 +53,10 @@ zipkin | 链路跟踪 | 9441 |
 
 下一步将进行一键部署
 
+#### 问题
+- 如果使用rabbitmq，zip需要配置环境变量，否则接收不到数据
+    zipkin.collector.rabbitmq.addresses=rabbitmq
+    zipkin.collector.rabbitmq.username=guest
+    zipkin.collector.rabbitmq.password=guest
+
 *有点别扭的是：最外层创建的是empty project。每次重新构建工程，每一个module需要手动加载。求解决方法？？*

@@ -91,6 +91,9 @@ services:
     - "9411:9411"
     environment:
     - TZ=Asia/Shanghai
+    - zipkin.collector.rabbitmq.addresses=rabbitmq
+    - zipkin.collector.rabbitmq.username=guest
+    - zipkin.collector.rabbitmq.password=guest
     volumes:
     - /jbh/servers/data/zipkin.jar:/jbh/data/application.jar:Z
     command: java -jar /jbh/data/application.jar >/dev/null 2>&1 & && tail -f /dev/null
