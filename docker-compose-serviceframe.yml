@@ -83,6 +83,23 @@ services:
     links:
     - eureka
 
+  nacos:
+    image: nacos/nacos-server
+    container_name: nacos
+    ports:
+    - "8848:8848"
+    environment:
+    - TZ=Asia/Shanghai
+    - MODE=standalone
+    - MYSQL_SERVICE_HOST=mysql
+    - MYSQL_SERVICE_PORT=3306
+    - MYSQL_SERVICE_DB_NAME=nacos_config
+    - MYSQL_SERVICE_USER=root
+    - MYSQL_SERVICE_PASSWORD=root
+    networks:
+    - basic
+    links:
+    - mysql
 
   zipkin:
     image: openzipkin/zipkin
@@ -100,7 +117,7 @@ services:
     networks:
       - basic
     links:
-    - eureka
+    - nacos
 
 
   admin:
@@ -118,9 +135,8 @@ services:
     networks:
       - basic
     links:
-    - eureka
+    - nacos
     - zipkin
-    - config
 
 
   hystrix:
@@ -138,11 +154,8 @@ services:
     networks:
       - basic
     links:
-    - eureka
+    - nacos
     - zipkin
-    - config
-
-
 
 
 
