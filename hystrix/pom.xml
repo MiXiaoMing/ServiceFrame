@@ -21,19 +21,17 @@
 
     <dependencies>
 
-        <!--eureka-->
+        <!--nacos-->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-            <version>2.1.2.RELEASE</version>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <version>2.1.1.RELEASE</version>
         </dependency>
-
-        <!--config-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.cloud</groupId>-->
-            <!--<artifactId>spring-cloud-config-client</artifactId>-->
-            <!--<version>2.1.7.RELEASE</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+            <version>2.1.1.RELEASE</version>
+        </dependency>
 
         <!--hystrix-->
         <dependency>
