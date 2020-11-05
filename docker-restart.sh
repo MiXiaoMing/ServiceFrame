@@ -1,8 +1,8 @@
 #!/usr/bin/expect
-spawn ssh -l root 1.119.166.179
+spawn ssh -l root 192.168.1.47
 set timeout -1
-expect "root@1.119.166.179's password: "
-send "LqIkKKTIcKeTIXSF4FF6Ftp\r"
+expect "root@192.168.1.47's password:"
+send "5iveL!fe\r"
 expect "*]#"
-send "docker-compose -f /jbh/servers/docker-compose-serviceframe.yaml restart [lindex $argv 0] && exit\r"
+send "docker-compose -f /srv/framework/docker-compose-serviceframe.yml restart [lindex $argv 0] && exit\r"
 expect eof

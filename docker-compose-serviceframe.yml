@@ -17,7 +17,7 @@ services:
     environment: 
     - TZ=Asia/Shanghai
     volumes:
-    - /jbh/redis/data/:/data:Z
+    - /srv/redis/data/:/data:Z
     networks:
       - basic
 
@@ -26,12 +26,12 @@ services:
     image: mysql:5.6
     container_name: mysql
     ports:
-    - "3306:3306"
+    - "3972:3306"
     environment:
     - TZ=Asia/Shanghai
-    - MYSQL_ROOT_PASSWORD=root
+    - MYSQL_ROOT_PASSWORD=sERviCefRaMe
     volumes:
-    - /jbh/mysql/data/:/var/lib/mysql:Z
+    - /srv/mysql/data/:/var/lib/mysql:Z
     networks:
       - basic
 
@@ -58,10 +58,10 @@ services:
     environment:
     - TZ=Asia/Shanghai
     volumes:
-    - /jbh/servers/data/eureka.jar:/jbh/data/application.jar:Z
-    - /jbh/servers/data/eureka.properties:/jbh/data/application.properties:Z
-    - /jbh/servers/log/:/serviceframe/log/:Z
-    command: java -jar /jbh/data/application.jar --spring.config.location=/jbh/data/application.properties >/dev/null 2>&1 & && tail -f /dev/null
+    - /srv/framework/data/eureka.jar:/srv/data/application.jar:Z
+    - /srv/framework/data/eureka.properties:/srv/data/application.properties:Z
+    - /srv/framework/log/:/serviceframe/log/:Z
+    command: java -jar /srv/data/application.jar --spring.config.location=/srv/data/application.properties >/dev/null 2>&1 & && tail -f /dev/null
     networks:
       - basic
 
@@ -74,10 +74,10 @@ services:
     environment:
     - TZ=Asia/Shanghai
     volumes:
-    - /jbh/servers/data/config.jar:/jbh/data/application.jar:Z
-    - /jbh/servers/data/config.properties:/jbh/data/application.properties:Z
-    - /jbh/servers/log/:/serviceframe/log/:Z
-    command: java -jar /jbh/data/application.jar --spring.config.location=/jbh/data/application.properties >/dev/null 2>&1 & && tail -f /dev/null
+    - /srv/framework/data/config.jar:/srv/data/application.jar:Z
+    - /srv/framework/data/config.properties:/srv/data/application.properties:Z
+    - /srv/framework/log/:/serviceframe/log/:Z
+    command: java -jar /srv/data/application.jar --spring.config.location=/srv/data/application.properties >/dev/null 2>&1 & && tail -f /dev/null
     networks:
       - basic
     links:
@@ -112,8 +112,8 @@ services:
     - zipkin.collector.rabbitmq.username=guest
     - zipkin.collector.rabbitmq.password=guest
     volumes:
-    - /jbh/servers/data/zipkin.jar:/jbh/data/application.jar:Z
-    command: java -jar /jbh/data/application.jar >/dev/null 2>&1 & && tail -f /dev/null
+    - /srv/framework/data/zipkin.jar:/srv/data/application.jar:Z
+    command: java -jar /srv/data/application.jar >/dev/null 2>&1 & && tail -f /dev/null
     networks:
       - basic
     links:
@@ -128,10 +128,10 @@ services:
     environment:
     - TZ=Asia/Shanghai
     volumes:
-    - /jbh/servers/data/admin.jar:/jbh/data/application.jar:Z
-    - /jbh/servers/data/admin.properties:/jbh/data/application.properties:Z
-    - /jbh/servers/log/:/serviceframe/log/:Z
-    command: java -jar /jbh/data/application.jar --spring.config.location=/jbh/data/application.properties >/dev/null 2>&1 & && tail -f /dev/null
+    - /srv/framework/data/admin.jar:/srv/data/application.jar:Z
+    - /srv/framework/data/admin.properties:/srv/data/application.properties:Z
+    - /srv/framework/log/:/serviceframe/log/:Z
+    command: java -jar /srv/data/application.jar --spring.config.location=/srv/data/application.properties >/dev/null 2>&1 & && tail -f /dev/null
     networks:
       - basic
     links:
@@ -147,10 +147,10 @@ services:
     environment:
     - TZ=Asia/Shanghai
     volumes:
-    - /jbh/servers/data/hystrix.jar:/jbh/data/application.jar:Z
-    - /jbh/servers/data/hystrix.properties:/jbh/data/application.properties:Z
-    - /jbh/servers/log/:/serviceframe/log/:Z
-    command: java -jar /jbh/data/application.jar --spring.config.location=/jbh/data/application.properties >/dev/null 2>&1 & && tail -f /dev/null
+    - /srv/framework/data/hystrix.jar:/srv/data/application.jar:Z
+    - /srv/framework/data/hystrix.properties:/srv/data/application.properties:Z
+    - /srv/framework/log/:/serviceframe/log/:Z
+    command: java -jar /srv/data/application.jar --spring.config.location=/srv/data/application.properties >/dev/null 2>&1 & && tail -f /dev/null
     networks:
       - basic
     links:
@@ -158,8 +158,30 @@ services:
     - zipkin
 
 
+  skywalking-aop:
+    image: apache/skywalking-oap-server
+    container_name: skywalking-aop
+    ports:
+    - "11800:11800"
+    - "12800:12800"
+    environment:
+    - TZ=Asia/Shanghai
+    networks:
+    - basic
 
 
+  skywalking-ui:
+    image: apache/skywalking-ui
+    container_name: skywalking-ui
+    ports:
+    - "8880:8080"
+    environment:
+    - TZ=Asia/Shanghai
+    - SW_OAP_ADDRESS=skywalking-aop:12800
+    networks:
+    - basic
+    links:
+    - skywalking-aop
 
 
 

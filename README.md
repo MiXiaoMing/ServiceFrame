@@ -9,6 +9,7 @@ nacos | 服务注册+配置中心 | 8848 |
 admin | 服务监控 | 9997 |
 hystrix | 服务降级和熔断 | 9996 |
 zipkin | 链路跟踪 | 9441 |
+skywalking-ui | 链路跟踪 | 8880 |
 
 部署方式：
 
@@ -19,7 +20,8 @@ zipkin | 链路跟踪 | 9441 |
     docker-compose up -d zipkin
 - admin: ./publish config bootstrap
 - hystrix: ./publish hystrix bootstrap
-
+- skywalking-aop:  docker-compose up -d skywalking-aop
+- skywalking-ui:  docker-compose up -d skywalking-ui
 
 ### 启动流程
 
@@ -42,9 +44,17 @@ zipkin | 链路跟踪 | 9441 |
     
    访问地址：http://localhost:9996/hystrix
 
+- skywalking-ui
+
+   访问地址：http://localhost:8880
+   
+   客户端需集成agent：http://mirrors.hust.edu.cn/apache/skywalking/8.1.0/apache-skywalking-apm-8.1.0.tar.gz
+
+
 
 #### 问题
 - 如果使用rabbitmq，zipkin需要配置环境变量，否则接收不到数据
     zipkin.collector.rabbitmq.addresses=rabbitmq
     zipkin.collector.rabbitmq.username=guest
     zipkin.collector.rabbitmq.password=guest
+- 
